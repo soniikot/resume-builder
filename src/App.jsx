@@ -4,9 +4,13 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
+  cosnt;
   return (
     <>
       <h1>Job Application</h1>
+      <Contact_data />
+      <Button text="Next" />
+      <Experience />
     </>
   );
 }

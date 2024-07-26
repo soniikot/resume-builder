@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 import Contact_data from "./Contact_data";
 import Experience from "./Experience";
@@ -8,14 +8,7 @@ import Skills from "./Skills";
 import Resume from "./Resume";
 
 function App() {
-  const storedResume = JSON.parse(localStorage.getItem("resume"));
-  const [resume, setResume] = useState(storedResume);
-
   const [currentPage, setCurrentPage] = useState(0);
-
-  useEffect(() => {
-    localStorage.setItem("resume", JSON.stringify(items));
-  }, [resume]);
 
   const pages = [
     { component: <Contact_data />, id: 1 },
@@ -23,7 +16,7 @@ function App() {
     { component: <Education />, id: 3 },
     { component: <Projects />, id: 4 },
     { component: <Skills />, id: 5 },
-    { component: <Resume />, id: 6 },
+    { component: <Resume setCurrentPage={setCurrentPage} />, id: 6 },
   ];
   const handleNext = () => {
     setCurrentPage((prevPage) => prevPage + 1);

@@ -2,7 +2,7 @@ import "./Contact_data.css";
 
 export default function Contact_data() {
   return (
-    <div id="1">
+    <div>
       <h2>Contact information</h2>
       <form className="form">
         <label htmlFor="firstName">First name</label>

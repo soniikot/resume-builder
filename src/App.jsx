@@ -1,16 +1,37 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import Contact_data from "./Contact_data";
+import Experience from "./Experience";
+import Education from "./Education";
+import Projects from "./Projects";
 
 function App() {
-  cosnt;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const pages = [
+    { component: <Contact_data />, id: 1 },
+    { component: <Experience />, id: 2 },
+    { component: <Education />, id: 3 },
+    { component: <Projects />, id: 4 },
+  ];
+  const handleNext = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevious = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
   return (
     <>
       <h1>Job Application</h1>
-      <Contact_data />
-      <Button text="Next" />
-      <Experience />
+      {pages[currentPage].component}
+      <nav>
+        {currentPage > 0 && <button onClick={handlePrevious}>Previous</button>}
+        {currentPage < pages.length - 1 && (
+          <button onClick={handleNext}>Next</button>
+        )}
+      </nav>
     </>
   );
 }

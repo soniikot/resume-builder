@@ -1,5 +1,3 @@
-import "./Contact_data.css";
-
 export default function Experience() {
   return (
     <div id="2">

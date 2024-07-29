@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-// Custom hook to handle local storage for multiple fields
 export function useLocalStorage(fields) {
   const [values, setValues] = useState(() => {
     const initialValues = {};

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import Contact from "./Contact";
-import Experience from "./Experience";
-import Education from "./Education";
-import Projects from "./Projects";
-import Skills from "./Skills";
-import Resume from "./Resume";
+import Contact from "./Components/Contact/Contact";
+import Experience from "./Components/Experience/Experience";
+import Education from "./Components/Education/Education";
+import Projects from "./Components/Projects/Projects";
+import Skills from "./Components/Skills/Skills";
+import Resume from "./Components/Resume/Resume";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -18,6 +18,7 @@ function App() {
     { component: <Skills />, id: 5 },
     { component: <Resume setCurrentPage={setCurrentPage} />, id: 6 },
   ];
+
   const handleNext = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };

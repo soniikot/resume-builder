@@ -1,17 +1,10 @@
-import { useState, useEffect } from "react";
+import useLocalStorage from "./assets/hooks/useLocalStorage";
 
-import "./Contact_data.css";
+import "./Contact.css";
 
-export default function Contact_data() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    const savedName = localStorage.getItem("name");
-    const savedEmail = localStorage.getItem("email");
-    if (savedName) setName(savedName);
-    if (savedEmail) setEmail(savedEmail);
-  }, []);
+export default function Contact() {
+  const [name, setName] = useLocalStorage("name", "");
+  const [email, setEmail] = useLocalStorage("email", "");
 
   const handleNameChange = (e) => {
     setName(e.target.value);

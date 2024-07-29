@@ -3,11 +3,20 @@ import { useState } from "react";
 import "./Contact.css";
 
 export default function Contact() {
-  const initialValues = useGetLocalStorage(["firstName", "email"]);
+  const { firstName, lastName, email, phone, address } = useGetLocalStorage([
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+    "address",
+  ]);
 
   const [values, setValues] = useState({
-    firstName: initialValues.firstName || "",
-    email: initialValues.email || "",
+    firstName: firstName || "",
+    lastName: lastName || "",
+    email: email || "",
+    phone: phone || "",
+    address: address || "",
   });
 
   const handleChange = (e) => {
@@ -27,7 +36,15 @@ export default function Contact() {
         <input
           type="text"
           name="firstName"
-          value={values.firstName}
+          value={firstName}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="lastName">Last name</label>
+        <input
+          type="text"
+          name="lastName"
+          value={lastName}
           onChange={handleChange}
         />
 
@@ -35,7 +52,23 @@ export default function Contact() {
         <input
           type="email"
           name="email"
-          value={values.email}
+          value={email}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="phone">Phone</label>
+        <input
+          type="phone"
+          name="phone"
+          value={phone}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="address">Address</label>
+        <input
+          type="address"
+          name="address"
+          value={address}
           onChange={handleChange}
         />
       </form>

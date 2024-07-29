@@ -1,0 +1,16 @@
+.contact {
+  display: flex;
+  text-align: left;
+  align-items: flex-start;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.fields {
+  flex-grow: 1;
+}
+
+.edit-button {
+  border: 1px solid black;
+}

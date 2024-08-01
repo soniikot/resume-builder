@@ -1,32 +1,27 @@
-import { useGetLocalStorage } from "../../assets/hooks/useGetLocalStorage";
-import { useState } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import "./Contact.css";
 
-export default function Contact() {
-  const { firstName, lastName, email, phone, address } = useGetLocalStorage([
-    "firstName",
-    "lastName",
-    "email",
-    "phone",
-    "address",
-  ]);
+const CONTACT = ["firstName", "lastName", "email", "phone", "address"];
 
-  const [values, setValues] = useState({
-    firstName: firstName || "",
-    lastName: lastName || "",
-    email: email || "",
-    phone: phone || "",
-    address: address || "",
-  });
+export default function Contact() {
+  const [values, setValues] = useLocalStorage(CONTACT);
+
+  const { firstName, lastName, email, phone, address } = values;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    localStorage.setItem(name, value);
+
+    setValues(name, value);
   };
+
+  //TODO
+  /**
+   *
+   *  mount + useEffect [] [....]
+   * controlled components
+   *
+   *
+   **/
 
   return (
     <div>

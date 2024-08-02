@@ -1,75 +1,87 @@
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import "./Experience.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const JOB_EXPERIENCE = [
-  "jobTitle",
-  "dateStarted",
-  "dateFinished",
-  "description",
-];
-export default function Experience() {
-  const [values, setValues] = useLocalStorage(JOB_EXPERIENCE);
-
-  const { jobTitle, dateStarted, dateFinished, description } = values;
-
-  const handleFormChange = (index, event) => {
-    let data = [...values];
-    data[index][event.target.name] = event.target.value;
-    setValues(data);
+const Form = () => {
+  const blankJob = {
+    jobTitle: "",
+    dateStarted: "",
+    dateFinished: "",
+    description: "",
   };
 
-  const addJobExperience = () => {
-    let newJob = { jobTitle: "", dateStarted: "" };
-    setValues([...values, newJob]);
+  const [jobState, setJobState] = useState([{ ...blankJob }]);
+
+  const addJob = () => {
+    setJobState([...jobState, { ...blankJob }]);
+  };
+
+  const handleJobChange = (e) => {
+    const updatedJobs = [...jobState];
+    updatedJobs[e.target.dataset.idx][e.target.className] = e.target.value;
+    setJobState(updatedJobs);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitted Jobs: ", jobState);
   };
 
   return (
-    <div id="2">
-      <h2>Experience</h2>
-      {values.map((index) => {
+    <form>
+      <input type="button" value="Add New Job" onClick={addJob} />
+      {jobState.map((val, idx) => {
+        const jobTitleId = `jobTitle-${idx}`;
+        const dateStartedId = `dateStarted-${idx}`;
+
+        const dateFinishedId = `dateStarted-${idx}`;
+        const descriptionId = `dateStarted-${idx}`;
         return (
-          <>
-            <h3>Job</h3>
-            <form className="form" key={index}>
-              <label htmlFor="jobTitle`${">Job Title</label>
-              <input
-                type="text"
-                name="jobTitle"
-                value={jobTitle}
-                onChange={(event) => handleFormChange(index, event)}
-              />
+          <div key={`job-${idx}`}>
+            <label htmlFor={jobTitleId}>{`Job #${idx + 1}`}</label>
+            <input
+              type="text"
+              name={jobTitleId}
+              data-idx={idx}
+              id={jobTitleId}
+              className="jobTitle"
+              value={jobState[idx].jobTitle}
+              onChange={handleJobChange}
+            />
+            <label htmlFor={dateStartedId}>Date Started</label>
+            <input
+              type="text"
+              name={dateStartedId}
+              data-idx={idx}
+              id={dateStartedId}
+              className="dateStarted"
+              value={jobState[idx].dateStarted}
+              onChange={handleJobChange}
+            />
+            <label htmlFor={dateFinishedId}>Date finished</label>
+            <input
+              type="date"
+              name={dateFinishedId}
+              data-idx={idx}
+              id={dateFinishedId}
+              className="dateFinished"
+              value={jobState[idx].dateFinished}
+              onChange={handleJobChange}
+            />
 
-              <label htmlFor="dateStarted">Date started</label>
-              <input
-                type="date"
-                name="dateStarted"
-                value={dateStarted}
-                onChange={(event) => handleFormChange(index, event)}
-              />
-
-              <label htmlFor="dateFinished">Date finished</label>
-              <input
-                type="date"
-                name="dateFinished"
-                value={dateFinished}
-                onChange={(event) => handleFormChange(index, event)}
-              />
-
-              <label htmlFor="description">Responsibilities </label>
-              <input
-                type="textarea"
-                name="description"
-                value={description}
-                onChange={(event) => handleFormChange(index, event)}
-              />
-            </form>
-          </>
+            <label htmlFor={descriptionId}>Responsibiliries </label>
+            <input
+              type="textarea"
+              name={descriptionId}
+              data-idx={idx}
+              id={descriptionId}
+              className="description"
+              value={jobState[idx].description}
+              onChange={handleJobChange}
+            />
+          </div>
         );
       })}
-      <button className="addButton" onClick={addJobExperience}>
-        Add another Job
-      </button>
-    </div>
+      <input type="submit" value="Submit" onClick={handleSubmit} />
+    </form>
   );
-}
+};
+export default Form;

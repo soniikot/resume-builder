@@ -7,11 +7,8 @@ export default function Resume({ setCurrentPage }) {
   const savedPhone = localStorage.getItem("phone");
   const savedAddress = localStorage.getItem("address");
 
-  const savedJobTitle = localStorage.getItem("jobTitle");
-  const savedDateStarted = localStorage.getItem("dateStarted");
-  const savedDateFinished = localStorage.getItem("DateFinished");
-  const savedDescribtion = localStorage.getItem("description");
-
+  const job = JSON.parse(localStorage.getItem("jobs"));
+  console.log(job);
   const handleEdit = (page) => {
     setCurrentPage(page);
   };
@@ -32,16 +29,18 @@ export default function Resume({ setCurrentPage }) {
         </button>
       </div>
 
-      <div className="experience">
-        <div className="fields">
-          <h3>Job Title: {savedJobTitle}</h3>
-          <h3>Date Started: {savedDateStarted}</h3>
-          <h3>Date Finished: {savedDateFinished}</h3>
-
-          <h3>Describtion: {savedDescribtion}</h3>
-        </div>
+      <div className="contact">
+        {job &&
+          job.map((job, idx) => (
+            <div className="fields" key={idx}>
+              <h3>Job Title: {job.jobTitle}</h3>
+              <h3>Date Started: {job.dateStarted}</h3>
+              <h3>Date Finished: {job.dateFinished}</h3>
+              <h3>Description: {job.description}</h3>
+            </div>
+          ))}{" "}
         <button className="edit-button" onClick={() => handleEdit(1)}>
-          edit
+          Edit
         </button>
       </div>
     </>

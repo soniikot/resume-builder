@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import "./Experience.css";
+import { useLocalStorage2 } from "./useLocalStorage2";
 
 const Form = () => {
   const blankJob = {
@@ -8,7 +10,7 @@ const Form = () => {
     description: "",
   };
 
-  const [jobState, setJobState] = useState([{ ...blankJob }]);
+  const [jobState, setJobState] = useLocalStorage2("jobs", [{ ...blankJob }]);
 
   const addJob = () => {
     setJobState([...jobState, { ...blankJob }]);
@@ -16,24 +18,18 @@ const Form = () => {
 
   const handleJobChange = (e) => {
     const updatedJobs = [...jobState];
-    updatedJobs[e.target.dataset.idx][e.target.className] = e.target.value;
+    const idx = e.target.dataset.idx;
+    updatedJobs[idx][e.target.className] = e.target.value;
     setJobState(updatedJobs);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitted Jobs: ", jobState);
   };
 
   return (
     <form>
-      <input type="button" value="Add New Job" onClick={addJob} />
       {jobState.map((val, idx) => {
         const jobTitleId = `jobTitle-${idx}`;
         const dateStartedId = `dateStarted-${idx}`;
-
-        const dateFinishedId = `dateStarted-${idx}`;
-        const descriptionId = `dateStarted-${idx}`;
+        const dateFinishedId = `dateFinished-${idx}`;
+        const descriptionId = `description-${idx}`;
         return (
           <div key={`job-${idx}`}>
             <label htmlFor={jobTitleId}>{`Job #${idx + 1}`}</label>
@@ -48,7 +44,7 @@ const Form = () => {
             />
             <label htmlFor={dateStartedId}>Date Started</label>
             <input
-              type="text"
+              type="date"
               name={dateStartedId}
               data-idx={idx}
               id={dateStartedId}
@@ -56,7 +52,7 @@ const Form = () => {
               value={jobState[idx].dateStarted}
               onChange={handleJobChange}
             />
-            <label htmlFor={dateFinishedId}>Date finished</label>
+            <label htmlFor={dateFinishedId}>Date Finished</label>
             <input
               type="date"
               name={dateFinishedId}
@@ -66,10 +62,8 @@ const Form = () => {
               value={jobState[idx].dateFinished}
               onChange={handleJobChange}
             />
-
-            <label htmlFor={descriptionId}>Responsibiliries </label>
-            <input
-              type="textarea"
+            <label htmlFor={descriptionId}>Responsibilities</label>
+            <textarea
               name={descriptionId}
               data-idx={idx}
               id={descriptionId}
@@ -80,8 +74,9 @@ const Form = () => {
           </div>
         );
       })}
-      <input type="submit" value="Submit" onClick={handleSubmit} />
+      <input type="button" value="Add New Job" onClick={addJob} />
     </form>
   );
 };
+
 export default Form;

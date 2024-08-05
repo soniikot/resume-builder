@@ -1,0 +1,40 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="text"],
+input[type="date"],
+textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+}
+
+div label {
+  margin-top: 0;
+}
+
+button.addButton {
+  padding: 10px 15px;
+
+  background-color: #007bff;
+}
+
+button.addButton:hover {
+  background-color: #0056b3;
+}

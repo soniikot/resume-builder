@@ -14,15 +14,6 @@ export default function Contact() {
     setValues(name, value);
   };
 
-  //TODO
-  /**
-   *
-   *  mount + useEffect [] [....]
-   * controlled components
-   *
-   *
-   **/
-
   return (
     <div>
       <h2>Contact Information</h2>

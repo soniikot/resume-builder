@@ -9,8 +9,8 @@ export default function Projects() {
         <label htmlFor="link">Link</label>
         <input type="url" name="link" />
 
-        <label htmlFor="describtion">describtion </label>
-        <input type="textarea" name="describtion" />
+        <label htmlFor="description">description </label>
+        <input type="textarea" name="description" />
       </form>
     </div>
   );

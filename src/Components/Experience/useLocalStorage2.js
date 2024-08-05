@@ -1,15 +1,28 @@
 import { useState, useEffect } from "react";
 
-export function useLocalStorage2(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
-    const item = localStorage.getItem(key);
+export function useLocalStorage2(fields, initialValue) {
+  const [values, setValues] = useState(() => {
+    const item = localStorage.getItem(fields[0]);
     return item ? JSON.parse(item) : initialValue;
   });
 
-  const setValue = (value) => {
-    setStoredValue(value);
-    localStorage.setItem(key, JSON.stringify(value));
+  const setInnerValues = (values) => {
+    setValues(values);
+    localStorage.setItem(fields[0], JSON.stringify(values));
   };
 
-  return [storedValue, setValue];
+  useEffect(() => {
+    const newValues = {};
+
+    fields.forEach((field) => {
+      const savedField = localStorage.getItem(field);
+      if (savedField) {
+        newValues[field] = JSON.parse(savedField);
+      }
+    });
+
+    setValues((prev) => ({ ...prev, ...newValues }));
+  }, [fields]);
+
+  return [values, setInnerValues];
 }

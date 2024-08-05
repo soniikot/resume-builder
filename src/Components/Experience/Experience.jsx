@@ -1,64 +1,31 @@
 import React from "react";
 import "./Experience.css";
-import { useLocalStorage2 } from "./useLocalStorage2";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-const Form = () => {
+export default function Contact() {
+  const [jobState, setJobState] = useLocalStorage("jobs", []);
+
   const blankJob = {
+    id: jobState.length,
     jobTitle: "",
     dateStarted: "",
     dateFinished: "",
     description: "",
   };
 
-  const [jobState, setJobState] = useLocalStorage2("jobs", [{ ...blankJob }]);
-
-
-  {
-    jobs:
-    {
-      "jobTitle-1": 'sfdfs',
-      "jobTitle-2": 'sldkj',
-      "dateStarted-3": 'sdfsdf',
-    }
-  }
-
-  {
-    jobs: [
-      {
-      id: "1",
-      jobTitle: "",
-      dateStarted: "",
-      },
-      {
-      id: "2",
-      jobTitle: "",
-      dateStarted: "",
-      },
-    ]
-  }
-
   const addJob = () => {
     setJobState([...jobState, { ...blankJob }]);
   };
 
   const handleJobChange = (e) => {
-    const updatedJobs = [...jobState];
     const idx = e.target.dataset.idx;
-    updatedJobs[idx][e.target.className] = e.target.value;
+    const updatedJobs = [...jobState];
+    updatedJobs[idx] = {
+      ...updatedJobs[idx],
+      [e.target.className]: e.target.value,
+    };
     setJobState(updatedJobs);
   };
-
-
-  const handleJobChangeNew = (e) => {
-    
-    const idx = e.target.dataset.idx
-
-
-    setJobState(name, value, idx);
-  };
-
-
-
 
   return (
     <form>
@@ -114,6 +81,4 @@ const Form = () => {
       <input type="button" value="Add New Job" onClick={addJob} />
     </form>
   );
-};
-
-export default Form;
+}

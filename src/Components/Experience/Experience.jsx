@@ -1,7 +1,8 @@
 import "./Experience.css";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import React from "react";
 
-/*const Experience = () => {
+function Experience() {
   const blankJob = {
     id: null,
     jobTitle: "",
@@ -10,132 +11,61 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
     description: "",
   };
 
-  //const [jobState, setJobState] = useLocalStorage("jobs", []);
+  const [jobs, setJobs] = useLocalStorage("jobs", []);
 
-  const addJob = () => {
-    const newJob = { ...blankJob, id: jobState.length };
-    setJobState([...jobState, newJob]);
-  };
-
-  const handleJobChangeOld = (e) => {
-    const updatedJobs = [...jobState];
-    const idx = e.target.dataset.idx;
-    updatedJobs[idx][e.target.className] = e.target.value;
-    setJobState(updatedJobs);
-  };
-
-  const handleJobChange = (e, name, value) => {
-    const idx = e.target.dataset.idx;
-
-    setJobState(name, value, idx);
-  };
-
-  return (
-    <form>
-      {jobState.map((val, idx) => {
-        const jobTitleId = `jobTitle-${idx}`;
-        const dateStartedId = `dateStarted-${idx}`;
-        const dateFinishedId = `dateFinished-${idx}`;
-        const descriptionId = `description-${idx}`;
-        return (
-          <div key={`job-${idx}`}>
-            <label htmlFor={jobTitleId}>{`Job #${idx + 1}`}</label>
-            <input
-              type="text"
-              name={jobTitleId}
-              data-idx={idx}
-              id={jobTitleId}
-              className="jobTitle"
-              value={jobState[idx].jobTitle}
-              onChange={handleJobChange}
-            />
-            <label htmlFor={dateStartedId}>Date Started</label>
-            <input
-              type="date"
-              name={dateStartedId}
-              data-idx={idx}
-              id={dateStartedId}
-              className="dateStarted"
-              value={jobState[idx].dateStarted}
-              onChange={handleJobChange}
-            />
-            <label htmlFor={dateFinishedId}>Date Finished</label>
-            <input
-              type="date"
-              name={dateFinishedId}
-              data-idx={idx}
-              id={dateFinishedId}
-              className="dateFinished"
-              value={jobState[idx].dateFinished}
-              onChange={handleJobChange}
-            />
-            <label htmlFor={descriptionId}>Responsibilities</label>
-            <textarea
-              name={descriptionId}
-              data-idx={idx}
-              id={descriptionId}
-              className="description"
-              value={jobState[idx].description}
-              onChange={handleJobChange}
-            />
-          </div>
-        );
-      })}
-      <input type="button" value="Add New Job" onClick={addJob} />
-    </form>
-  );
-};
-
-export default Experience;
-*/
-
-import React from "react";
-
-function Experience() {
-  const blankJob = {
-    id: null,
-    jobTitle: "",
-    dateStarted: "",
-  };
-
-  const [jobs, setJob] = useLocalStorage("jobs");
-
-  const handleClick = () => {
-    setJob("id", jobs.length, jobs.length);
-    setJob("jobTitle", "", jobs.length);
-    setJob("dateStarted", "", jobs.length);
+  const handleClickAdd = () => {
+    setJobs("id", jobs.length, jobs.length);
+    setJobs("jobTitle", "", jobs.length);
+    setJobs("dateStarted", "", jobs.length);
+    setJobs("dateFinished", "", jobs.length);
+    setJobs(" description:", "", jobs.length);
   };
 
   const handleChange = (e, i) => {
     const { name, value } = e.target;
-    setJob(name, value, i);
+    setJobs(name, value, i);
   };
 
-  const handleDelete = (i) => {
-    const newJobs = [...jobs];
-    newJobs.splice(i, 1);
-    setJob("id", newJobs);
-  };
+  const handleDelete = (i) => {};
 
   return (
-    <div className="App">
-      <button onClick={handleClick}>Add</button>
+    <div className="experience">
       {jobs.map((val, i) => (
         <div>
-          <input
-            name="jobTitle"
-            value={val.jobTitle}
-            onChange={(e) => handleChange(e, i)}
-          />
-          <input
-            name="dateStarted"
-            value={val.dateStarted}
-            onChange={(e) => handleChange(e, i)}
-          />
-          <button onClick={() => handleDelete(i)}>Delete</button>
+          <h2>Job {i + 1}</h2>
+          <form className="form">
+            <label htmlFor="JobTitle">Job Title</label>
+            <input
+              name="jobTitle"
+              value={val.jobTitle}
+              onChange={(e) => handleChange(e, i)}
+            />
+            <label htmlFor="dateStarted">Date Started</label>
+            <input
+              name="dateStarted"
+              type="date"
+              value={val.dateStarted}
+              onChange={(e) => handleChange(e, i)}
+            />
+            <label htmlFor="dateFinished">Date Finished</label>
+            <input
+              name="dateFinished"
+              type="date"
+              value={val.dateFinished}
+              onChange={(e) => handleChange(e, i)}
+            />{" "}
+            <label htmlFor="description">Description</label>
+            <input
+              type="textarea"
+              name="description"
+              value={val.description}
+              onChange={(e) => handleChange(e, i)}
+            />
+            <button onClick={() => handleDelete(i)}>Delete</button>
+          </form>
         </div>
       ))}
-      <p>{JSON.stringify(jobs)}</p>
+      <button onClick={handleClickAdd}>Add</button>
     </div>
   );
 }

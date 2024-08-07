@@ -3,8 +3,8 @@ import "./Resume.css";
 export default function Resume({ setCurrentPage }) {
   const contact = JSON.parse(localStorage.getItem("contact"));
 
-  const { firstName, lastName, email, phone, address } = contact;
-  console.log(firstName);
+  const { firstName, lastName, email, phone, address } = contact[0];
+
   const job = JSON.parse(localStorage.getItem("jobs"));
 
   const handleEdit = (page) => {

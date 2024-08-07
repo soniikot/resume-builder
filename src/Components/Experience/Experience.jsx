@@ -1,39 +1,19 @@
-import React from "react";
 import "./Experience.css";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-useLocalStorage;
 
-const Experience = () => {
+/*const Experience = () => {
   const blankJob = {
+    id: null,
     jobTitle: "",
     dateStarted: "",
     dateFinished: "",
     description: "",
   };
 
-  const [jobState, setJobState] = useLocalStorage("jobs", ["..."]);
-
-  /*
-  {
-    
-
-  {/*
-    jobs: [
-      {
-      id: "1",
-      jobTitle: "",
-      dateStarted: "",
-      },
-      {
-      id: "2",
-      jobTitle: "",
-      dateStarted: "",
-      },
-    ]
-  }*/
+  //const [jobState, setJobState] = useLocalStorage("jobs", []);
 
   const addJob = () => {
-    const newJob = { ...blankJob, id: jobState.length + 1 };
+    const newJob = { ...blankJob, id: jobState.length };
     setJobState([...jobState, newJob]);
   };
 
@@ -44,7 +24,7 @@ const Experience = () => {
     setJobState(updatedJobs);
   };
 
-  const handleJobChange = (e) => {
+  const handleJobChange = (e, name, value) => {
     const idx = e.target.dataset.idx;
 
     setJobState(name, value, idx);
@@ -52,15 +32,21 @@ const Experience = () => {
 
   return (
     <form>
-      {jobState.map((input, idx) => {
+      {jobState.map((val, idx) => {
+        const jobTitleId = `jobTitle-${idx}`;
+        const dateStartedId = `dateStarted-${idx}`;
+        const dateFinishedId = `dateFinished-${idx}`;
+        const descriptionId = `description-${idx}`;
         return (
-          <div key={index}>
-            <label htmlFor>Job Title</label>
+          <div key={`job-${idx}`}>
+            <label htmlFor={jobTitleId}>{`Job #${idx + 1}`}</label>
             <input
               type="text"
-              name="jobTitle"
+              name={jobTitleId}
+              data-idx={idx}
+              id={jobTitleId}
               className="jobTitle"
-              value={input.name}
+              value={jobState[idx].jobTitle}
               onChange={handleJobChange}
             />
             <label htmlFor={dateStartedId}>Date Started</label>
@@ -99,5 +85,59 @@ const Experience = () => {
     </form>
   );
 };
+
+export default Experience;
+*/
+
+import React from "react";
+
+function Experience() {
+  const blankJob = {
+    id: null,
+    jobTitle: "",
+    dateStarted: "",
+  };
+
+  const [jobs, setJob] = useLocalStorage("jobs");
+
+  const handleClick = () => {
+    setJob("id", jobs.length, jobs.length);
+    setJob("jobTitle", "", jobs.length);
+    setJob("dateStarted", "", jobs.length);
+  };
+
+  const handleChange = (e, i) => {
+    const { name, value } = e.target;
+    setJob(name, value, i);
+  };
+
+  const handleDelete = (i) => {
+    const newJobs = [...jobs];
+    newJobs.splice(i, 1);
+    setJob("id", newJobs);
+  };
+
+  return (
+    <div className="App">
+      <button onClick={handleClick}>Add</button>
+      {jobs.map((val, i) => (
+        <div>
+          <input
+            name="jobTitle"
+            value={val.jobTitle}
+            onChange={(e) => handleChange(e, i)}
+          />
+          <input
+            name="dateStarted"
+            value={val.dateStarted}
+            onChange={(e) => handleChange(e, i)}
+          />
+          <button onClick={() => handleDelete(i)}>Delete</button>
+        </div>
+      ))}
+      <p>{JSON.stringify(jobs)}</p>
+    </div>
+  );
+}
 
 export default Experience;

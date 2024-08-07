@@ -1,4 +1,9 @@
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+label {
+  text-align: center;
 }

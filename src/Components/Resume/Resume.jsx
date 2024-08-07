@@ -1,14 +1,12 @@
 import "./Resume.css";
 
 export default function Resume({ setCurrentPage }) {
-  const savedFirstName = localStorage.getItem("firstName");
-  const savedLastName = localStorage.getItem("lastName");
-  const savedEmail = localStorage.getItem("email");
-  const savedPhone = localStorage.getItem("phone");
-  const savedAddress = localStorage.getItem("address");
+  const contact = JSON.parse(localStorage.getItem("contact"));
+
+  const { firstName, lastName, email, phone, address } = contact[0];
 
   const job = JSON.parse(localStorage.getItem("jobs"));
-  console.log(job);
+
   const handleEdit = (page) => {
     setCurrentPage(page);
   };
@@ -18,11 +16,11 @@ export default function Resume({ setCurrentPage }) {
       <h2>Resume</h2>
       <div className="contact">
         <div className="fields">
-          <h3>First Name: {savedFirstName}</h3>
-          <h3>LastName: {savedLastName}</h3>
-          <h3>Email: {savedEmail}</h3>
-          <h3> Phone: {savedPhone}</h3>
-          <h3>Address: {savedAddress}</h3>
+          <h3>First Name: {firstName}</h3>
+          <h3>LastName: {lastName}</h3>
+          <h3>Email: {email}</h3>
+          <h3> Phone: {phone}</h3>
+          <h3>Address: {address}</h3>
         </div>
         <button className="edit-button" onClick={() => handleEdit(0)}>
           edit

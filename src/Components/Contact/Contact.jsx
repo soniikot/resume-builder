@@ -2,14 +2,14 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import "./Contact.css";
 
 export default function Contact() {
-  const [values, setValues] = useLocalStorage("contact");
+  const [values, setValues] = useLocalStorage("contact", [""]);
 
   const { firstName, lastName, email, phone, address } = values;
 
   const handleChange = (e) => {
-    const { name, value, id } = e.target;
+    const { name, value } = e.target;
 
-    setValues(name, value, id);
+    setValues(name, value);
   };
 
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import "./Experience.css";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useLocalStorage2 } from "./useLocalStorage2";
 
-export default function Experience() {
+const Form = () => {
   const blankJob = {
     jobTitle: "",
     dateStarted: "",
@@ -10,7 +10,7 @@ export default function Experience() {
     description: "",
   };
 
-  const [jobState, setJobState] = useLocalStorage("jobs", [{ ...blankJob }]);
+  const [jobState, setJobState] = useLocalStorage2("jobs", [{ ...blankJob }]);
 
   /*
   {
@@ -22,7 +22,7 @@ export default function Experience() {
     }
   }
 
-  {
+  {/*
     jobs: [
       {
       id: "1",
@@ -35,8 +35,8 @@ export default function Experience() {
       dateStarted: "",
       },
     ]
-  }
-*/
+  }*/
+
   const addJob = () => {
     setJobState([...jobState, { ...blankJob }]);
   };
@@ -108,4 +108,6 @@ export default function Experience() {
       <input type="button" value="Add New Job" onClick={addJob} />
     </form>
   );
-}
+};
+
+export default Form;

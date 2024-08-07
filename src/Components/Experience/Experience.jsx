@@ -1,8 +1,9 @@
 import React from "react";
 import "./Experience.css";
-import { useLocalStorage2 } from "./useLocalStorage2";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+useLocalStorage;
 
-const Form = () => {
+const Experience = () => {
   const blankJob = {
     jobTitle: "",
     dateStarted: "",
@@ -10,17 +11,11 @@ const Form = () => {
     description: "",
   };
 
-  const [jobState, setJobState] = useLocalStorage2("jobs", [{ ...blankJob }]);
+  const [jobState, setJobState] = useLocalStorage("jobs", ["..."]);
 
   /*
   {
-    jobs:
-    {
-      "jobTitle-1": 'sfdfs',
-      "jobTitle-2": 'sldkj',
-      "dateStarted-3": 'sdfsdf',
-    }
-  }
+    
 
   {/*
     jobs: [
@@ -38,17 +33,18 @@ const Form = () => {
   }*/
 
   const addJob = () => {
-    setJobState([...jobState, { ...blankJob }]);
+    const newJob = { ...blankJob, id: jobState.length + 1 };
+    setJobState([...jobState, newJob]);
   };
 
-  const handleJobChange = (e) => {
+  const handleJobChangeOld = (e) => {
     const updatedJobs = [...jobState];
     const idx = e.target.dataset.idx;
     updatedJobs[idx][e.target.className] = e.target.value;
     setJobState(updatedJobs);
   };
 
-  const handleJobChangeNew = (e) => {
+  const handleJobChange = (e) => {
     const idx = e.target.dataset.idx;
 
     setJobState(name, value, idx);
@@ -56,21 +52,15 @@ const Form = () => {
 
   return (
     <form>
-      {jobState.map((val, idx) => {
-        const jobTitleId = `jobTitle-${idx}`;
-        const dateStartedId = `dateStarted-${idx}`;
-        const dateFinishedId = `dateFinished-${idx}`;
-        const descriptionId = `description-${idx}`;
+      {jobState.map((input, idx) => {
         return (
-          <div key={`job-${idx}`}>
-            <label htmlFor={jobTitleId}>{`Job #${idx + 1}`}</label>
+          <div key={index}>
+            <label htmlFor>Job Title</label>
             <input
               type="text"
-              name={jobTitleId}
-              data-idx={idx}
-              id={jobTitleId}
+              name="jobTitle"
               className="jobTitle"
-              value={jobState[idx].jobTitle}
+              value={input.name}
               onChange={handleJobChange}
             />
             <label htmlFor={dateStartedId}>Date Started</label>
@@ -110,4 +100,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default Experience;

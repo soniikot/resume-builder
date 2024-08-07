@@ -1,40 +1,30 @@
 import { useState, useEffect } from "react";
 
-export function useLocalStorage(key) {
-  const [values, setValues] = useState([]);
-
-  useEffect(() => {
-    const savedField = localStorage.getItem(key);
-    if (savedField) {
-      setValues(JSON.parse(savedField));
-    }
-  }, [key]);
+export function useLocalStorage(key, initialValue = []) {
+  const [values, setValues] = useState(initialValue); // fieldList
 
   const setInnerValue = (name, value, id) => {
+    const index = values.findIndex((field) => field.id === id);
+
     const newValues = [...values];
-    let field;
-
-    if (id) {
-      field = newValues.find((field) => field.id === id);
+    if (index >= 0) {
+      newValues[index] = { ...newValues[index], [name]: value };
     } else {
-      field = newValues.find((field) => !field.id);
-      if (!field) {
-        field = {};
-      }
-    }
-
-    field[name] = value;
-    if (id) {
-      field.id = id;
-    }
-
-    if (!newValues.includes(field)) {
-      newValues.push(field);
+      newValues.push({ id, [name]: value });
     }
 
     localStorage.setItem(key, JSON.stringify(newValues));
     setValues(newValues);
   };
+
+  useEffect(() => {
+    const savedField = localStorage.getItem(key);
+
+    if (savedField) {
+      const savedData = JSON.parse(savedField);
+      setValues(savedData);
+    }
+  }, [key]);
 
   return [values, setInnerValue];
 }

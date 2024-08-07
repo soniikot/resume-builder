@@ -1,60 +1,34 @@
 import { useState, useEffect } from "react";
 
-// ("genInfo", [''])
-
 export function useLocalStorage(key) {
-  const [ key ] = useState(key);
-  const [values, setValues] = useState([]); //fieldList
+  const [values, setValues] = useState([]);
 
   const setInnerValue = (name, value, id) => {
-    [{
-      id: '0',
-      jobTitle: 'name',
-      dates: '123124'
-    },
-    {
-      id: '1',
-      jobTitle: 'name2',
-      dates: '123124'
-    },
-    ]
-    const newValue = {}
+    let updatedValues;
 
-    const oldField = values.find((field) => field.id === id )
+    if (id) {
+      const index = values.findIndex((item) => item.id === id);
 
-    //TODO 
-    /**
-      * newValues = [...,  {updated field}] 
-      * 
-      * localStorage
-      * 
-      * setValue(newValues)
-      * 
-      **/
-
-    if (oldField) {
-      newValue[name] = value
+      if (index !== -1) {
+        updatedValues = [...values];
+        updatedValues[index] = { ...updatedValues[index], [name]: value };
+      } else {
+        updatedValues = [...values, { id, [name]: value }];
+      }
     } else {
-      newValue[name] = value
-      newValue[id] = values.length
+      updatedValues = { ...values, [name]: value };
     }
 
-    localStorage.setItem(key, [...]);
-    
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    localStorage.setItem(key, JSON.stringify(updatedValues));
+    setValues(updatedValues);
   };
 
   useEffect(() => {
-    const savedField = localStorage.getItem(key); //"" null
-
-    if (savedField) {
-      const savedData = JSON.parse(savedField);
-      setValues(savedData);
+    const savedValues = localStorage.getItem(key);
+    if (savedValues) {
+      setValues(JSON.parse(savedValues));
     }
-  }, []);
+  }, [key]);
 
   return [values, setInnerValue];
 }

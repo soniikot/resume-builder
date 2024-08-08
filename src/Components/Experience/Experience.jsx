@@ -1,37 +1,42 @@
 import "./Experience.css";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
+
+const BLANK_JOB = {
+  id: null,
+  jobTitle: "",
+  dateStarted: "",
+  dateFinished: "",
+  description: "",
+};
 
 function Experience() {
-  const blankJob = {
-    id: null,
-    jobTitle: "",
-    dateStarted: "",
-    dateFinished: "",
-    description: "",
-  };
-
-  const [jobs, setJobs] = useLocalStorage("jobs", []);
+  const [jobs, setJobs, setFieldList] = useLocalStorage("jobs");
 
   const handleClickAdd = () => {
-    setJobs("id", jobs.length, jobs.length);
-    setJobs("jobTitle", "", jobs.length);
-    setJobs("dateStarted", "", jobs.length);
-    setJobs("dateFinished", "", jobs.length);
-    setJobs(" description:", "", jobs.length);
+    Object.entries(BLANK_JOB).forEach(([key, value]) => {
+      setJobs(key, value, uuidv4());
+    });
   };
 
   const handleChange = (e, i) => {
     const { name, value } = e.target;
-    setJobs(name, value, i);
+    setJobs(name, value, jobs[i].id);
   };
 
-  const handleDelete = (i) => {};
+  const handleDelete = (id) => {
+    const jobsArray = [...jobs];
+    const updatedJobsArray = jobsArray.filter((job) => job.id !== id);
+    console.log(updatedJobsArray);
+    setFieldList(updatedJobsArray);
+    localStorage.setItem("jobs", JSON.stringify(updatedJobsArray));
+  };
 
   return (
     <div className="experience">
       {jobs.map((val, i) => (
-        <div>
+        <div key={val.id}>
           <h2>Job {i + 1}</h2>
           <form className="form">
             <label htmlFor="JobTitle">Job Title</label>
@@ -53,7 +58,7 @@ function Experience() {
               type="date"
               value={val.dateFinished}
               onChange={(e) => handleChange(e, i)}
-            />{" "}
+            />
             <label htmlFor="description">Description</label>
             <input
               type="textarea"
@@ -61,7 +66,7 @@ function Experience() {
               value={val.description}
               onChange={(e) => handleChange(e, i)}
             />
-            <button onClick={() => handleDelete(i)}>Delete</button>
+            <button onClick={() => handleDelete(val.id)}>Delete</button>
           </form>
         </div>
       ))}

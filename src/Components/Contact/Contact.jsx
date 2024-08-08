@@ -2,7 +2,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import "./Contact.css";
 
 export default function Contact() {
-  const [values, setValues] = useLocalStorage("contact", [{ id: "contact" }]);
+  const [values, setValues] = useLocalStorage("contact");
 
   const contact = values.find((item) => item.id === "contact") || {};
   const { firstName, lastName, email, phone, address } = contact;
@@ -60,3 +60,32 @@ export default function Contact() {
     </div>
   );
 }
+
+//TODO
+/**
+  * 
+  * 
+sdfsdf [{
+  "id": "contact",
+  "firstName": "werq",
+  "lastName": "wer",
+  "phone": "345"
+}]
+
+, sdfsdf
+[{
+id: o
+sdf
+sdfs
+sdf
+
+
+}, 
+{
+  id: 2
+  sdf
+  sdf
+  sdf
+  sdf
+}]
+**/

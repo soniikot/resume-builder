@@ -19,7 +19,7 @@ export default function Resume({ setCurrentPage }) {
           <h3>First Name: {firstName}</h3>
           <h3>LastName: {lastName}</h3>
           <h3>Email: {email}</h3>
-          <h3> Phone: {phone}</h3>
+          <h3>Phone: {phone}</h3>
           <h3>Address: {address}</h3>
         </div>
         <button className="edit-button" onClick={() => handleEdit(0)}>
@@ -36,7 +36,7 @@ export default function Resume({ setCurrentPage }) {
               <h3>Date Finished: {job.dateFinished}</h3>
               <h3>Description: {job.description}</h3>
             </div>
-          ))}{" "}
+          ))}
         <button className="edit-button" onClick={() => handleEdit(1)}>
           Edit
         </button>

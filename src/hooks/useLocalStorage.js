@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-export function useLocalStorage(key, initialValue = []) {
-  const [values, setValues] = useState(initialValue); // fieldList
+export function useLocalStorage(key) {
+  const [fieldList, setFieldList] = useState([]);
 
   const setInnerValue = (name, value, id) => {
-    const index = values.findIndex((field) => field.id === id);
+    const index = fieldList.findIndex((field) => field.id === id);
 
-    const newValues = [...values];
+    const newValues = [...fieldList];
     if (index >= 0) {
       newValues[index] = { ...newValues[index], [name]: value };
     } else {
@@ -14,7 +14,7 @@ export function useLocalStorage(key, initialValue = []) {
     }
 
     localStorage.setItem(key, JSON.stringify(newValues));
-    setValues(newValues);
+    setFieldList(newValues);
   };
 
   useEffect(() => {
@@ -22,9 +22,11 @@ export function useLocalStorage(key, initialValue = []) {
 
     if (savedField) {
       const savedData = JSON.parse(savedField);
-      setValues(savedData);
-    }
-  }, [key]);
 
-  return [values, setInnerValue];
+      console.log(savedData);
+      setFieldList(savedData);
+    }
+  }, []);
+
+  return [fieldList, setInnerValue, setFieldList];
 }

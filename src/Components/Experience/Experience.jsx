@@ -2,23 +2,21 @@ import "./Experience.css";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import React from "react";
 
-function Experience() {
-  const blankJob = {
-    id: null,
-    jobTitle: "",
-    dateStarted: "",
-    dateFinished: "",
-    description: "",
-  };
+const BLANK_JOB = {
+  id: null,
+  jobTitle: "",
+  dateStarted: "",
+  dateFinished: "",
+  description: "",
+};
 
-  const [jobs, setJobs] = useLocalStorage("jobs", []);
+function Experience() {
+  const [jobs, setJobs, setFieldList] = useLocalStorage("jobs");
 
   const handleClickAdd = () => {
-    setJobs("id", jobs.length, jobs.length);
-    setJobs("jobTitle", "", jobs.length);
-    setJobs("dateStarted", "", jobs.length);
-    setJobs("dateFinished", "", jobs.length);
-    setJobs(" description:", "", jobs.length);
+    Object.entries(BLANK_JOB).forEach(([key, value]) => {
+      setJobs(key, value, jobs.length);
+    });
   };
 
   const handleChange = (e, i) => {
@@ -26,7 +24,11 @@ function Experience() {
     setJobs(name, value, i);
   };
 
-  const handleDelete = (i) => {};
+  const handleDelete = (i) => {
+    const list = [...jobs];
+    list.splice(i);
+    setFieldList(list);
+  };
 
   return (
     <div className="experience">
@@ -53,7 +55,7 @@ function Experience() {
               type="date"
               value={val.dateFinished}
               onChange={(e) => handleChange(e, i)}
-            />{" "}
+            />
             <label htmlFor="description">Description</label>
             <input
               type="textarea"

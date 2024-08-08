@@ -1,6 +1,7 @@
 import "./Experience.css";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const BLANK_JOB = {
   id: null,
@@ -15,25 +16,27 @@ function Experience() {
 
   const handleClickAdd = () => {
     Object.entries(BLANK_JOB).forEach(([key, value]) => {
-      setJobs(key, value, jobs.length);
+      setJobs(key, value, uuidv4());
     });
   };
 
   const handleChange = (e, i) => {
     const { name, value } = e.target;
-    setJobs(name, value, i);
+    setJobs(name, value, jobs[i].id);
   };
 
-  const handleDelete = (i) => {
-    const list = [...jobs];
-    list.splice(i);
-    setFieldList(list);
+  const handleDelete = (id) => {
+    const jobsArray = [...jobs];
+    const updatedJobsArray = jobsArray.filter((job) => job.id !== id);
+    console.log(updatedJobsArray);
+    setFieldList(updatedJobsArray);
+    localStorage.setItem("jobs", JSON.stringify(updatedJobsArray));
   };
 
   return (
     <div className="experience">
       {jobs.map((val, i) => (
-        <div>
+        <div key={val.id}>
           <h2>Job {i + 1}</h2>
           <form className="form">
             <label htmlFor="JobTitle">Job Title</label>
@@ -63,7 +66,7 @@ function Experience() {
               value={val.description}
               onChange={(e) => handleChange(e, i)}
             />
-            <button onClick={() => handleDelete(i)}>Delete</button>
+            <button onClick={() => handleDelete(val.id)}>Delete</button>
           </form>
         </div>
       ))}

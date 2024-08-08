@@ -23,7 +23,6 @@ export function useLocalStorage(key) {
     if (savedField) {
       const savedData = JSON.parse(savedField);
 
-      console.log(savedData);
       setFieldList(savedData);
     }
   }, []);

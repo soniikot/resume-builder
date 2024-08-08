@@ -28,7 +28,7 @@ function Experience() {
   const handleDelete = (id) => {
     const jobsArray = [...jobs];
     const updatedJobsArray = jobsArray.filter((job) => job.id !== id);
-    console.log(updatedJobsArray);
+
     setFieldList(updatedJobsArray);
     localStorage.setItem("jobs", JSON.stringify(updatedJobsArray));
   };

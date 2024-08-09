@@ -22,10 +22,12 @@
 }
 
 .resume {
+  width: 700px;
   border: 5px, solid, black;
   border-radius: 5px;
-  margin-inline: 50px;
+  margin-inline: auto;
   padding-inline: 50px;
+  padding: 50px;
 }
 
 .multifields {
@@ -33,4 +35,22 @@
   text-align: left;
   display: flex;
   align-items: center;
+  line-height: 1.1;
+}
+
+p,
+h2,
+h3 {
+  margin-block-start: 10px;
+  margin-block-end: 10px;
+}
+
+@media print {
+  button {
+    display: none;
+  }
+
+  .resume {
+    border: none;
+  }
 }

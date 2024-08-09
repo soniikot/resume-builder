@@ -3,7 +3,7 @@
   text-align: left;
   align-items: flex-start;
   padding: 20px;
-  border: 2px solid black;
+
   border-radius: 10px;
 }
 
@@ -13,4 +13,24 @@
 
 .edit-button {
   border: 1px solid black;
+}
+
+.general-fields {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.resume {
+  border: 5px, solid, black;
+  border-radius: 5px;
+  margin-inline: 50px;
+  padding-inline: 50px;
+}
+
+.multifields {
+  border-bottom: 1px solid black;
+  text-align: left;
+  display: flex;
+  align-items: center;
 }

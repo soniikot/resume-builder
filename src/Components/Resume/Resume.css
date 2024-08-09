@@ -1,22 +1,15 @@
-.contact {
+.skills {
   display: flex;
-  text-align: left;
-  align-items: flex-start;
-  padding: 20px;
-
-  border-radius: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
 }
-
-.fields {
-  flex-grow: 1;
-}
-
 .edit-button {
   border: 1px solid black;
 }
 
 .general-fields {
   display: flex;
+  gap: 20px;
   justify-content: space-between;
   border-bottom: 1px solid black;
 }
@@ -30,19 +23,12 @@
   padding: 50px;
 }
 
-.multifields {
-  border-bottom: 1px solid black;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  line-height: 1.1;
-}
-
 p,
 h2,
-h3 {
+h3,
+h4 {
   margin-block-start: 10px;
-  margin-block-end: 10px;
+  margin-block-end: 5px;
 }
 
 @media print {
@@ -53,4 +39,15 @@ h3 {
   .resume {
     border: none;
   }
+}
+
+.fields {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.fields__list {
+  display: block;
+  text-align: left;
 }

@@ -6,7 +6,6 @@ const BLANK_EDUCATION = {
   id: null,
   degree: "",
   nameOfSchool: "",
-  dateFinished: "",
 };
 
 export default function Education() {
@@ -53,13 +52,6 @@ export default function Education() {
               onChange={(e) => handleChange(e, i)}
             />
 
-            <label htmlFor="dateFinished">Date finished</label>
-            <input
-              type="date"
-              value={val.dateFinished}
-              name="dateFinished"
-              onChange={(e) => handleChange(e, i)}
-            />
             <button onClick={() => handleDelete(val.id)}>Delete</button>
           </form>
         </div>

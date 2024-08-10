@@ -1,16 +1,53 @@
-.contact {
+.skills {
   display: flex;
-  text-align: left;
-  align-items: flex-start;
-  padding: 20px;
-  border: 2px solid black;
-  border-radius: 10px;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+.edit-button {
+  border: 1px solid black;
+}
+
+.general-fields {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.resume {
+  width: 700px;
+  border: 5px, solid, black;
+  border-radius: 5px;
+  margin-inline: auto;
+  padding-inline: 50px;
+  padding: 50px;
+}
+
+p,
+h2,
+h3,
+h4 {
+  margin-block-start: 10px;
+  margin-block-end: 5px;
+}
+
+@media print {
+  button {
+    display: none;
+  }
+
+  .resume {
+    border: none;
+  }
 }
 
 .fields {
-  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
 }
 
-.edit-button {
-  border: 1px solid black;
+.fields__list {
+  display: block;
+  text-align: left;
 }

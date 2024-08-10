@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      <h1>Job Application</h1>
+      {currentPage < 5 && <h1>Job Application</h1>}
       {pages[currentPage].component}
       <nav>
         {currentPage > 0 && <button onClick={handlePrevious}>Previous</button>}

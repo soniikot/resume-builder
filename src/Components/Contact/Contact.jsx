@@ -5,7 +5,7 @@ export default function Contact() {
   const [values, setValues] = useLocalStorage("contact");
 
   const contact = values.find((item) => item.id === "contact") || {};
-  const { firstName, lastName, email, phone, address } = contact;
+  const { firstName, lastName, email, phone, address, position } = contact;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +15,7 @@ export default function Contact() {
 
   return (
     <div>
-      <h2>Contact Information</h2>
+      <h2>General Information</h2>
       <form className="form">
         <label htmlFor="firstName">First name</label>
         <input
@@ -56,36 +56,15 @@ export default function Contact() {
           value={address}
           onChange={handleChange}
         />
+
+        <label htmlFor="position">Position</label>
+        <input
+          type="text"
+          name="position"
+          value={position}
+          onChange={handleChange}
+        />
       </form>
     </div>
   );
 }
-
-//TODO
-/**
-  * 
-  * 
-sdfsdf [{
-  "id": "contact",
-  "firstName": "werq",
-  "lastName": "wer",
-  "phone": "345"
-}]
-
-, sdfsdf
-[{
-id: o
-sdf
-sdfs
-sdf
-
-
-}, 
-{
-  id: 2
-  sdf
-  sdf
-  sdf
-  sdf
-}]
-**/

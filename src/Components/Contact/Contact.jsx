@@ -1,5 +1,6 @@
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import "./Contact.css";
+import { useForm } from "react-hook-form";
 
 export default function Contact() {
   const [values, setValues] = useLocalStorage("contact");
@@ -7,10 +8,19 @@ export default function Contact() {
   const contact = values.find((item) => item.id === "contact") || {};
   const { firstName, lastName, email, phone, address, position } = contact;
 
+  const validateName = (value) => {
+    if (value.trim() === "") {
+      return { isValid: false, errorMessage: "required" };
+    } else return { isValid: true, errorMessage: "" };
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setValues(name, value, "contact");
+    const { isValid, errorMessage } = validateName(value);
+    setValues(name, value, "contact"); // always update the state
+    if (!isValid) {
+      console.log(errorMessage); // log the error message if invalid
+    }
   };
 
   return (

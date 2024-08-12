@@ -7,22 +7,12 @@ const fieldsValidity = {
   firstName: false,
 };
 
-// {
-//   contact: [{ id: "contact" }];
-// }
-
 export default function Contact({ onError }) {
   const [values, setValues] = useLocalStorage("contact");
   const [errors, setErrors] = useState({});
 
   const contact = values[0] || {};
   const { firstName, lastName, email, phone, address, position } = contact;
-
-  // const validateName = (value) => {
-  //   if (value.trim() === "") {
-  //     return { isValid: false, errorMessage: "required" };
-  //   } else return { isValid: true, errorMessage: "" };
-  // };
 
   const getIsValid = (value, required) => {
     const trimValue = value.trim();
@@ -40,7 +30,6 @@ export default function Contact({ onError }) {
 
   const handleChange = (e) => {
     const { name, value, required } = e.target;
-    // const { isValid, errorMessage } = validateName(value);
 
     const isValid = getIsValid(value, required);
 
@@ -50,8 +39,6 @@ export default function Contact({ onError }) {
 
     setValues(name, value, "contact");
   };
-
-  console.log(`Contact/Contact.jsx - line: 36 ->> onError `, errors.firstName);
 
   return (
     <div>
@@ -65,14 +52,20 @@ export default function Contact({ onError }) {
           onChange={handleChange}
           required
         />
-        {errors.firstName && <span>Field not valid</span>}
+        {errors.firstName && (
+          <span className="errorMessage">Don't leave the field blank</span>
+        )}
         <label htmlFor="lastName">Last name</label>
         <input
           type="text"
           name="lastName"
           value={lastName}
           onChange={handleChange}
+          required
         />
+        {errors.lastName && (
+          <span className="errorMessage">Don't leave the field blank</span>
+        )}
 
         <label htmlFor="email">Email</label>
         <input
@@ -80,7 +73,11 @@ export default function Contact({ onError }) {
           name="email"
           value={email}
           onChange={handleChange}
+          required
         />
+        {errors.email && (
+          <span className="errorMessage"> Don't leave the field blank</span>
+        )}
 
         <label htmlFor="phone">Phone</label>
         <input
@@ -88,7 +85,11 @@ export default function Contact({ onError }) {
           name="phone"
           value={phone}
           onChange={handleChange}
+          required
         />
+        {errors.phone && (
+          <span className="errorMessage"> Don't leave the field blank</span>
+        )}
 
         <label htmlFor="address">Address</label>
         <input
@@ -96,7 +97,11 @@ export default function Contact({ onError }) {
           name="address"
           value={address}
           onChange={handleChange}
+          required
         />
+        {errors.address && (
+          <span className="errorMessage"> Don't leave the field blank</span>
+        )}
 
         <label htmlFor="position">Position</label>
         <input
@@ -104,7 +109,11 @@ export default function Contact({ onError }) {
           name="position"
           value={position}
           onChange={handleChange}
+          required
         />
+        {errors.position && (
+          <span className="errorMessage"> Don't leave the field blank</span>
+        )}
       </form>
     </div>
   );

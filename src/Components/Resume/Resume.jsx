@@ -1,6 +1,6 @@
 import "./Resume.css";
 
-export default function Resume({ setCurrentPage }) {
+export default function Resume({ onSetCurrentPage }) {
   const contact = JSON.parse(localStorage.getItem("contact"));
   const { firstName, lastName, email, phone, address, position } = contact[0];
 
@@ -14,7 +14,7 @@ export default function Resume({ setCurrentPage }) {
   const { technicalSkills, softSkills } = skills[0];
 
   const handleEdit = (page) => {
-    setCurrentPage(page);
+    onSetCurrentPage(page);
   };
 
   return (

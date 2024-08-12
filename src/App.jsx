@@ -9,14 +9,15 @@ import Resume from "./Components/Resume/Resume";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(0);
+  const [hasError, setHasError] = useState(false);
 
   const pages = [
-    { component: <Contact />, id: 1 },
+    { component: <Contact onError={setHasError} />, id: 1 }, // props names start with onSmth
     { component: <Experience />, id: 2 },
     { component: <Education />, id: 3 },
     { component: <Projects />, id: 4 },
     { component: <Skills />, id: 5 },
-    { component: <Resume setCurrentPage={setCurrentPage} />, id: 6 },
+    { component: <Resume onSetCurrentPage={setCurrentPage} />, id: 6 },
   ];
 
   const handleNext = () => {
@@ -34,7 +35,9 @@ function App() {
       <nav>
         {currentPage > 0 && <button onClick={handlePrevious}>Previous</button>}
         {currentPage < pages.length - 1 && (
-          <button onClick={handleNext}>Next</button>
+          <button onClick={handleNext} disabled={hasError}>
+            Next
+          </button>
         )}
       </nav>
     </>

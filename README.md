@@ -6,6 +6,7 @@ In this project, I created a small application where users can input their infor
 * useEffect hook,
 * pagination,
 * building a custome hook for using local storage
+* form validation 
 
 
 ## General Information Section:
